@@ -294,6 +294,21 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var result;
+    var prevArguments = [];
+    return function(){
+      var equals = true;
+      for (var i = 0; i < Math.min(arguments.length, prevArguments.length); i++){
+        if (arguments[i] !== prevArguments[i]){
+          equals = false;
+        }
+      }
+      if (!equals || arguments.length !== prevArguments.length){
+        result = func.apply(this, arguments);
+      }
+      prevArguments = arguments;
+      return result;
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
