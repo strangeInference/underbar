@@ -344,6 +344,15 @@
     for (var i = 0; i < array.length; i++){
       shuffled.push(copy.splice(Math.floor(Math.random() * array.length - i), 1)[0]);
     }
+    var equals = true;
+    for (var j = 0; j < array.length; j++){
+      if (shuffled[j] !== array[j]){
+        equals = false;
+      }
+    }
+    if (equals){
+      shuffled = _.shuffle(shuffled);
+    }
     return shuffled;
   };
 
